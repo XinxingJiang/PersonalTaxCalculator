@@ -9,12 +9,16 @@
 import Foundation
 
 class CalculatorBrain {
-    let deductStandard = 3500.0
+    static let originalDeductStandard = 3500.0
+    static var deductStandard = 3500.0
     
-    func getTax(income income: Double, insurance: Double) -> Double? {
-        let taxableIncome = income - deductStandard - insurance
-        if taxableIncome < 0 {
+    class func getTax(income income: Double, insurance: Double) -> Double? {
+        if income < insurance {
             return nil
+        }
+        let taxableIncome = income - self.deductStandard - insurance
+        if taxableIncome < 0 {
+            return 0
         }
         switch taxableIncome {
         case 0 ..< 1500:

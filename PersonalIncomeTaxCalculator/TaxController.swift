@@ -24,10 +24,9 @@ class TaxController: UIViewController, UITextFieldDelegate {
     var taxValueLabel: UILabel!
     var incomeAfterTaxTitleLabel: UILabel!
     var incomeAfterTaxValueLabel: UILabel!
+    var errorMessageLabel: UILabel!
     
     // MARK: - Models
-    
-    var brain: CalculatorBrain!
     
     // MARK: - VC life cycle
     
@@ -35,8 +34,16 @@ class TaxController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         self.tabBarItem = UITabBarItem(title: Constants.TabBarItemTitle, image: nil, tag: 1)
         self.view.backgroundColor = UIColor.whiteColor()
-        brain = CalculatorBrain()
         initSubviews()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        deductStandardValueLabel.text = "\(CalculatorBrain.deductStandard)"
+        taxTitleLabel.hidden = true
+        taxValueLabel.hidden = true
+        incomeAfterTaxTitleLabel.hidden = true
+        incomeAfterTaxValueLabel.hidden = true
     }
     
     // MARK: - Init subviews
@@ -54,6 +61,7 @@ class TaxController: UIViewController, UITextFieldDelegate {
         initTaxValueLabel()
         initIncomeAfterTaxTitleLabel()
         initIncomeAfterTaxValueLabel()
+        initErrorMessageLabel()
     }
     
     private func initIncomeLabel() {
@@ -133,7 +141,6 @@ class TaxController: UIViewController, UITextFieldDelegate {
     private func initDeductStandardValueLabel() {
         deductStandardValueLabel = UILabel()
         deductStandardValueLabel.translatesAutoresizingMaskIntoConstraints = false
-        deductStandardValueLabel.text = "\(brain.deductStandard)"
         deductStandardValueLabel.textAlignment = .Right
         self.view.addSubview(deductStandardValueLabel)
         
@@ -151,8 +158,7 @@ class TaxController: UIViewController, UITextFieldDelegate {
         calculateButton.addTarget(self, action: Selector("calculate"), forControlEvents: UIControlEvents.AllEvents)
         calculateButton.sizeToFit()
         calculateButton.layer.borderWidth = 1.0
-        calculateButton.layer.borderColor = UIColor.blueColor().CGColor
-        calculateButton.userInteractionEnabled = false
+        changeCalculateButtonClickable(false)
         self.view.addSubview(calculateButton)
         
         let topConstraint = NSLayoutConstraint(item: calculateButton, attribute: .Top, relatedBy: .Equal, toItem: deductStandardTitleLabel, attribute: .Bottom, multiplier: 1, constant: 20)
@@ -183,8 +189,10 @@ class TaxController: UIViewController, UITextFieldDelegate {
 
         let income = Double(incomeTextField.text!)!
         let insurance = Double(insuranceTextField.text!)!
-        if let tax = brain.getTax(income: income, insurance: insurance) {
+        if let tax = CalculatorBrain.getTax(income: income, insurance: insurance) {
             showResult(income: income, tax: tax)
+        } else {
+            showError()
         }
     }
     
@@ -194,21 +202,31 @@ class TaxController: UIViewController, UITextFieldDelegate {
         
         incomeTextField.text = ""
         insuranceTextField.text = ""
-        calculateButton.userInteractionEnabled = false
+        changeCalculateButtonClickable(false)
         
         taxTitleLabel.hidden = true
         taxValueLabel.hidden = true
         incomeAfterTaxTitleLabel.hidden = true
         incomeAfterTaxValueLabel.hidden = true
+        errorMessageLabel.hidden = true
     }
     
     private func showResult(income income: Double, tax: Double) {
+        errorMessageLabel.hidden = true
         taxTitleLabel.hidden = false
         taxValueLabel.text = "\(tax)"
         taxValueLabel.hidden = false
         incomeAfterTaxTitleLabel.hidden = false
         incomeAfterTaxValueLabel.text = "\(income - tax)"
         incomeAfterTaxValueLabel.hidden = false
+    }
+    
+    private func showError() {
+        taxTitleLabel.hidden = true
+        taxValueLabel.hidden = true
+        incomeAfterTaxTitleLabel.hidden = true
+        incomeAfterTaxValueLabel.hidden = true
+        errorMessageLabel.hidden = false
     }
     
     private func initTaxTitleLabel() {
@@ -265,29 +283,57 @@ class TaxController: UIViewController, UITextFieldDelegate {
         self.view.addConstraints([leadingConstraint, trailingConstraint, centerYConstraint, heightConstraint])
     }
     
+    private func initErrorMessageLabel() {
+        errorMessageLabel = UILabel()
+        errorMessageLabel.text = Constants.ErrorMessage
+        errorMessageLabel.translatesAutoresizingMaskIntoConstraints = false
+        errorMessageLabel.textAlignment = .Left
+        errorMessageLabel.numberOfLines = 0
+        errorMessageLabel.hidden = true
+        self.view.addSubview(errorMessageLabel)
+        
+        let leadingConstraint = NSLayoutConstraint(item: errorMessageLabel, attribute: .Leading, relatedBy: .Equal, toItem: deductStandardTitleLabel, attribute: .Leading, multiplier: 1, constant: 0)
+        let trailingConstraint = NSLayoutConstraint(item: errorMessageLabel, attribute: .Trailing, relatedBy: .Equal, toItem: deductStandardValueLabel, attribute: .Trailing, multiplier: 1, constant: 0)
+        let topConstraint = NSLayoutConstraint(item: errorMessageLabel, attribute: .Top, relatedBy: .Equal, toItem: calculateButton, attribute: .Bottom, multiplier: 1, constant: 20)
+        self.view.addConstraints([leadingConstraint, trailingConstraint, topConstraint])
+    }
+    
+    // MARK: - Text field delegate
+    
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         let textAfterEdit = NSString(string: textField.text ?? "").stringByReplacingCharactersInRange(range, withString: string)
         if textAfterEdit.isEmpty {
-            calculateButton.userInteractionEnabled = false
+            changeCalculateButtonClickable(false)
         } else {
             if textField == incomeTextField {
                 if let text = insuranceTextField.text {
-                    calculateButton.userInteractionEnabled = !text.isEmpty
+                    changeCalculateButtonClickable(!text.isEmpty)
                 }
             }
             if textField == insuranceTextField {
                 if let text = incomeTextField.text {
-                    calculateButton.userInteractionEnabled = !text.isEmpty
+                    changeCalculateButtonClickable(!text.isEmpty)
                 }
             }
         }
         return true
     }
     
+    private func changeCalculateButtonClickable(clickable: Bool) {
+        calculateButton.userInteractionEnabled = clickable
+        if clickable {
+            calculateButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+            calculateButton.layer.borderColor = UIColor.blueColor().CGColor
+        } else {
+            calculateButton.setTitleColor(UIColor.grayColor(), forState: .Normal)
+            calculateButton.layer.borderColor = UIColor.grayColor().CGColor
+        }
+    }
+    
     // MARK: - Constants
     
     struct Constants {
-        static let TabBarItemTitle = "Tax"
+        static let TabBarItemTitle = "计算"
         static let TotalIncome = "收入总额"
         static let Insurance = "三险一金"
         static let DeductStandardTitle = "起征额"
@@ -296,5 +342,6 @@ class TaxController: UIViewController, UITextFieldDelegate {
         static let Reset = "重置"
         static let Tax = "应缴税额"
         static let IncomeAfterTax = "税后收入"
+        static let ErrorMessage = "收入总额小于三险一金，请重新输入"
     }
 }
