@@ -174,7 +174,7 @@ class TaxController: UIViewController, UITextFieldDelegate {
         let centerYConstraint = NSLayoutConstraint(item: resetButton, attribute: .CenterY, relatedBy: .Equal, toItem: calculateButton, attribute: .CenterY, multiplier: 1, constant: 0)
         let widthConstraint = NSLayoutConstraint(item: resetButton, attribute: .Width, relatedBy: .Equal, toItem: calculateButton, attribute: .Width, multiplier: 1, constant: 0)
         let heightConstraint = NSLayoutConstraint(item: resetButton, attribute: .Height, relatedBy: .Equal, toItem: calculateButton, attribute: .Height, multiplier: 1, constant: 0)
-        self.view.addConstraints([leadingConstraint, centerYConstraint, widthConstraint, heightConstraint])
+        self.view.addConstraints([leadingConstraint, centerYConstraint, widthConstraint, heightConstraint])a
     }
     
     func calculate() {
