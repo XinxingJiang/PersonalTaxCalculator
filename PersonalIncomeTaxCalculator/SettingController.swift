@@ -19,10 +19,9 @@ class SettingController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Models
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tabBarItem = UITabBarItem(title: Constants.TabBarItemTitle, image: nil, tag: 2)
+        
         self.view.backgroundColor = UIColor.whiteColor()
         initSubviews()
     }
@@ -43,7 +42,8 @@ class SettingController: UIViewController, UITextFieldDelegate {
         deductStandardLabel.translatesAutoresizingMaskIntoConstraints = false
         let topConstraint = NSLayoutConstraint(item: deductStandardLabel, attribute: .Top, relatedBy: .Equal, toItem: self.topLayoutGuide, attribute: .Bottom, multiplier: 1, constant: 20)
         let leadingConstraint = NSLayoutConstraint(item: deductStandardLabel, attribute: .Leading, relatedBy: .Equal, toItem: self.view, attribute: .Leading, multiplier: 1, constant: 20)
-        self.view.addConstraints([topConstraint, leadingConstraint])
+        let widthConstraint = NSLayoutConstraint(item: deductStandardLabel, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 100)
+        self.view.addConstraints([topConstraint, leadingConstraint, widthConstraint])
     }
     
     private func initDeductStandardTextField() {

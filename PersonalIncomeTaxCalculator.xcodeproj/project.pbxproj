@@ -17,6 +17,9 @@
 		B77B14D91BBA75CA007C11A5 /* TaxController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77B14D81BBA75CA007C11A5 /* TaxController.swift */; settings = {ASSET_TAGS = (); }; };
 		B77B14DB1BBA75D3007C11A5 /* SettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77B14DA1BBA75D3007C11A5 /* SettingController.swift */; settings = {ASSET_TAGS = (); }; };
 		B77B14DD1BBA793B007C11A5 /* CalculatorBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77B14DC1BBA793B007C11A5 /* CalculatorBrain.swift */; settings = {ASSET_TAGS = (); }; };
+		B7C05B991BD7DD890071769F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C05B981BD7DD890071769F /* TabBarController.swift */; settings = {ASSET_TAGS = (); }; };
+		B7C05B9B1BD7E2530071769F /* WikiController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C05B9A1BD7E2530071769F /* WikiController.swift */; settings = {ASSET_TAGS = (); }; };
+		B7C05B9D1BD7E3450071769F /* UINavigationControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C05B9C1BD7E3450071769F /* UINavigationControllerExtension.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +56,9 @@
 		B77B14D81BBA75CA007C11A5 /* TaxController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxController.swift; sourceTree = "<group>"; };
 		B77B14DA1BBA75D3007C11A5 /* SettingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingController.swift; sourceTree = "<group>"; };
 		B77B14DC1BBA793B007C11A5 /* CalculatorBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculatorBrain.swift; sourceTree = "<group>"; };
+		B7C05B981BD7DD890071769F /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		B7C05B9A1BD7E2530071769F /* WikiController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WikiController.swift; sourceTree = "<group>"; };
+		B7C05B9C1BD7E3450071769F /* UINavigationControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +93,7 @@
 				B77B14BE1BBA7541007C11A5 /* PersonalIncomeTaxCalculatorTests */,
 				B77B14C91BBA7541007C11A5 /* PersonalIncomeTaxCalculatorUITests */,
 				B77B14A51BBA7541007C11A5 /* Products */,
+				B7C05B961BD7DD690071769F /* SupportingFiles */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,15 +110,9 @@
 		B77B14A61BBA7541007C11A5 /* PersonalIncomeTaxCalculator */ = {
 			isa = PBXGroup;
 			children = (
-				B77B14A71BBA7541007C11A5 /* AppDelegate.swift */,
-				B77B14D81BBA75CA007C11A5 /* TaxController.swift */,
-				B77B14DA1BBA75D3007C11A5 /* SettingController.swift */,
-				B77B14DC1BBA793B007C11A5 /* CalculatorBrain.swift */,
-				B77B14AB1BBA7541007C11A5 /* Main.storyboard */,
-				B77B14B11BBA7541007C11A5 /* Assets.xcassets */,
-				B77B14B31BBA7541007C11A5 /* LaunchScreen.storyboard */,
-				B77B14B61BBA7541007C11A5 /* Info.plist */,
-				B77B14AE1BBA7541007C11A5 /* PersonalIncomeTaxCalculator.xcdatamodeld */,
+				B7C05B9E1BD7E3720071769F /* Extensions */,
+				B7C05B951BD7DD570071769F /* Controllers */,
+				B7C05B971BD7DD780071769F /* Models */,
 			);
 			path = PersonalIncomeTaxCalculator;
 			sourceTree = "<group>";
@@ -132,6 +133,47 @@
 				B77B14CC1BBA7541007C11A5 /* Info.plist */,
 			);
 			path = PersonalIncomeTaxCalculatorUITests;
+			sourceTree = "<group>";
+		};
+		B7C05B951BD7DD570071769F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B77B14DA1BBA75D3007C11A5 /* SettingController.swift */,
+				B7C05B981BD7DD890071769F /* TabBarController.swift */,
+				B77B14D81BBA75CA007C11A5 /* TaxController.swift */,
+				B7C05B9A1BD7E2530071769F /* WikiController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		B7C05B961BD7DD690071769F /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				B77B14A71BBA7541007C11A5 /* AppDelegate.swift */,
+				B77B14AB1BBA7541007C11A5 /* Main.storyboard */,
+				B77B14B11BBA7541007C11A5 /* Assets.xcassets */,
+				B77B14B31BBA7541007C11A5 /* LaunchScreen.storyboard */,
+				B77B14B61BBA7541007C11A5 /* Info.plist */,
+				B77B14AE1BBA7541007C11A5 /* PersonalIncomeTaxCalculator.xcdatamodeld */,
+			);
+			name = SupportingFiles;
+			path = PersonalIncomeTaxCalculator;
+			sourceTree = "<group>";
+		};
+		B7C05B971BD7DD780071769F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B77B14DC1BBA793B007C11A5 /* CalculatorBrain.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		B7C05B9E1BD7E3720071769F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B7C05B9C1BD7E3450071769F /* UINavigationControllerExtension.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,9 +307,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				B77B14DB1BBA75D3007C11A5 /* SettingController.swift in Sources */,
+				B7C05B9B1BD7E2530071769F /* WikiController.swift in Sources */,
 				B77B14B01BBA7541007C11A5 /* PersonalIncomeTaxCalculator.xcdatamodeld in Sources */,
 				B77B14A81BBA7541007C11A5 /* AppDelegate.swift in Sources */,
+				B7C05B991BD7DD890071769F /* TabBarController.swift in Sources */,
 				B77B14DD1BBA793B007C11A5 /* CalculatorBrain.swift in Sources */,
+				B7C05B9D1BD7E3450071769F /* UINavigationControllerExtension.swift in Sources */,
 				B77B14D91BBA75CA007C11A5 /* TaxController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -495,6 +540,7 @@
 				B77B14D11BBA7541007C11A5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B77B14D21BBA7541007C11A5 /* Build configuration list for PBXNativeTarget "PersonalIncomeTaxCalculatorTests" */ = {
 			isa = XCConfigurationList;
@@ -503,6 +549,7 @@
 				B77B14D41BBA7541007C11A5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B77B14D51BBA7541007C11A5 /* Build configuration list for PBXNativeTarget "PersonalIncomeTaxCalculatorUITests" */ = {
 			isa = XCConfigurationList;
@@ -511,6 +558,7 @@
 				B77B14D71BBA7541007C11A5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

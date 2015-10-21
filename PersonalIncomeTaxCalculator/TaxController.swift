@@ -32,7 +32,6 @@ class TaxController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tabBarItem = UITabBarItem(title: Constants.TabBarItemTitle, image: nil, tag: 1)
         self.view.backgroundColor = UIColor.whiteColor()
         initSubviews()
     }
@@ -73,7 +72,8 @@ class TaxController: UIViewController, UITextFieldDelegate {
         
         let leadingConstraint = NSLayoutConstraint(item: incomeLabel, attribute: .Leading, relatedBy: .Equal, toItem: self.view, attribute: .Leading, multiplier: 1, constant: 20)
         let topConstraint = NSLayoutConstraint(item: incomeLabel, attribute: .Top, relatedBy: .Equal, toItem: self.topLayoutGuide, attribute: .Bottom, multiplier: 1, constant: 20)
-        self.view.addConstraints([leadingConstraint, topConstraint])
+        let widthConstraint = NSLayoutConstraint(item: incomeLabel, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 100)
+        self.view.addConstraints([leadingConstraint, topConstraint, widthConstraint])
     }
     
     private func initIncomeTextField() {
@@ -333,7 +333,6 @@ class TaxController: UIViewController, UITextFieldDelegate {
     // MARK: - Constants
     
     struct Constants {
-        static let TabBarItemTitle = "计算"
         static let TotalIncome = "收入总额"
         static let Insurance = "三险一金"
         static let DeductStandardTitle = "起征额"

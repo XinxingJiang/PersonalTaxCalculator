@@ -15,15 +15,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        // setup window
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        let tbc = UITabBarController()
-        let tc = TaxController()
-        tc.viewDidLoad()
-        let sc = SettingController()
-        sc.viewDidLoad()
-        tbc.viewControllers = [tc, sc]
-        window?.rootViewController = tbc
-        tbc.selectedIndex = 0
+        
+        // setup entry point
+        let tabBarController = TabBarController()
+        let navigationController = UINavigationController(rootViewController: tabBarController)
+        window?.rootViewController = navigationController
+        
         return true
     }
 
